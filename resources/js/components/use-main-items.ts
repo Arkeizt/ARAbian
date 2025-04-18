@@ -14,7 +14,7 @@ interface Auth {
 
 interface PageProps {
     auth: Auth;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 interface NavItem {
