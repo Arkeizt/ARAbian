@@ -1,5 +1,6 @@
 import { LayoutGrid } from 'lucide-react';
 import { usePage } from '@inertiajs/react';
+import type { LucideIcon } from 'lucide-react';
 
 interface User {
     id: number;
@@ -19,7 +20,7 @@ interface PageProps {
 interface NavItem {
     title: string;
     href: string;
-    icon: any;
+    icon: LucideIcon;
 }
 
 function resolveNavItems(permissions: string[]): NavItem[] {
@@ -37,7 +38,6 @@ function resolveNavItems(permissions: string[]): NavItem[] {
     ];
 }
 
-// ✅ This is the exported React hook (clean, no logic inside)
 export function useNavItems(): NavItem[] {
     const { props } = usePage<PageProps>();
     const permissions = props.auth?.user?.permissions || [];
