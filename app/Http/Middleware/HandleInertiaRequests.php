@@ -39,18 +39,26 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
-        return [
-            ...parent::share($request),
-            'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
+        return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => $request->user() ? [
+                    'id'          => $request->user()->id,
+                    'name'        => $request->user()->name,
+                    // combine direct + via‑role permissions
+                    'permissions' => $request->user()
+                                           ->getAllPermissions()
+                                           ->pluck('name')
+                                           ->toArray(),
+                    'roles'       => $request->user()
+                                           ->getRoleNames()
+                                           ->toArray(),
+                ] : null,
+                // if you want, you can still share these booleans too:
+                'canManageProjects' => fn() => $request->user()?->can('manage client projects') ?? false,
+                'isAdmin'           => fn() => $request->user()?->hasRole('admin') ?? false,
             ],
-            'ziggy' => fn (): array => [
-                ...(new Ziggy)->toArray(),
-                'location' => $request->url(),
-            ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-        ];
+        ]);
     }
+
+    
 }

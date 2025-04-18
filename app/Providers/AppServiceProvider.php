@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,9 +23,17 @@ class AppServiceProvider extends ServiceProvider
     {
         Inertia::share([
             'canManageProjects' => fn () => auth()->check() && auth()->user()->can('manage client projects'),
-        ]);
-        Inertia::share([
+
             'isAdmin' => fn () => auth()->check() && auth()->user()->hasRole('admin'),
+            
+            'auth.user' => function () {
+                $user = Auth::user();
+                return $user ? [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'permissions' => $user->getPermissionsViaRoles()->pluck('name')->toArray(),
+                ] : null;
+            },
         ]);
     }
 }
