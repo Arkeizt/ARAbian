@@ -6,7 +6,7 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
-import { useNavItems } from '@/components/use-main-items';
+import { useNavItems } from '@/hooks/use-main-items';
 
 const footerNavItems: NavItem[] = [
     {

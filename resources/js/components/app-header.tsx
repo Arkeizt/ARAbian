@@ -14,7 +14,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
-import { useNavItems } from '@/components/use-main-items';
+import { useNavItems } from '@/hooks/use-main-items';
 
 const rightNavItems: NavItem[] = [
     {
