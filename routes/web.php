@@ -27,6 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('my-projects');
     })->middleware(['auth'])->name('my.projects');
 
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
