@@ -1,21 +1,7 @@
 import { LayoutGrid } from 'lucide-react';
 import { usePage } from '@inertiajs/react';
 import type { LucideIcon } from 'lucide-react';
-
-interface User {
-    id: number;
-    name: string;
-    permissions: string[];
-}
-
-interface Auth {
-    user: User | null;
-}
-
-interface PageProps {
-    auth: Auth;
-    [key: string]: unknown;
-}
+import type { SharedData } from '@/types';
 
 interface NavItem {
     title: string;
@@ -23,24 +9,19 @@ interface NavItem {
     icon: LucideIcon;
 }
 
-function resolveNavItems(permissions: string[]): NavItem[] {
-    const isAdmin = permissions.includes('manage client projects');
-
-    console.log('isAdmin:', isAdmin);
-    console.log('User permissions:', permissions);
-
+function resolveNavItems(isAdmin: boolean): NavItem[] {
     return [
         {
-        title: isAdmin ? 'Client Projects' : 'My Projects',
-        href: '/dashboard', //use new href pag mabuhat na, prefix /admin for admin
-        icon: LayoutGrid,
+            title: isAdmin ? 'Client Projects' : 'My Projects',
+            href: isAdmin ? '/admin/projects' : '/my-projects',
+            icon: LayoutGrid,
         },
     ];
 }
 
 export function useNavItems(): NavItem[] {
-    const { props } = usePage<PageProps>();
-    const permissions = props.auth?.user?.permissions || [];
+    const { auth } = usePage<SharedData>().props;
+    const isAdmin = auth?.isAdmin ?? false;
 
-    return resolveNavItems(permissions);
+    return resolveNavItems(isAdmin);
 }

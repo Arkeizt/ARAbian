@@ -1,16 +1,32 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('welcome', [
+        'auth' => [
+            'user' => Auth::user(),
+        ]
+    ]);
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    
+    Route::get('/admin/projects', function () {
+        if (!auth()->user()?->hasRole('admin')) {
+            return Redirect::route('my-projects');
+        }
+    
+        return Inertia::render('admin-projects');
+    })->middleware(['auth', 'can:manage client projects'])->name('admin.projects');
+    
+    
+    Route::get('/my-projects', function () {
+        return Inertia::render('my-projects');
+    })->middleware(['auth'])->name('my.projects');
+
 });
 
 require __DIR__.'/settings.php';

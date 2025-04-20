@@ -39,26 +39,21 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $user = $request->user();
+        
+
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user() ? [
-                    'id'          => $request->user()->id,
-                    'name'        => $request->user()->name,
-                    // combine direct + via‑role permissions
-                    'permissions' => $request->user()
-                                           ->getAllPermissions()
-                                           ->pluck('name')
-                                           ->toArray(),
-                    'roles'       => $request->user()
-                                           ->getRoleNames()
-                                           ->toArray(),
+                'user'              => $user ? [
+                    'id'          => $user->id,
+                    'name'        => $user->name,
+                    'email'       => $user->email,
+                    'permissions' => $user->getAllPermissions()->pluck('name')->toArray(),
+                    'roles'       => $user->getRoleNames()->toArray(),
                 ] : null,
-                // if you want, you can still share these booleans too:
-                'canManageProjects' => fn() => $request->user()?->can('manage client projects') ?? false,
-                'isAdmin'           => fn() => $request->user()?->hasRole('admin') ?? false,
+                'canManageProjects' => $user ? $user->can('manage client projects') : false,
+                'isAdmin'           => $user && $user->hasRole('admin'),
             ],
         ]);
     }
-
-    
 }
