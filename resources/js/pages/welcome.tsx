@@ -2,11 +2,7 @@ import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Welcome() {
-    const { props } = usePage();
-    console.log('Raw props:', props);
     const { auth, isAdmin } = usePage<SharedData>().props;
-    const isAdmin1 = isAdmin;
-    console.log('is admin?: ', isAdmin1);
     return (
         <>
             <Head title="Welcome">
@@ -21,12 +17,12 @@ export default function Welcome() {
                             <Link
                                 href={
                                     isAdmin
-                                        ? route('admin.projects')
+                                        ? route('clients')
                                         : route('my.projects')
                                 }
                                 className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                             >
-                                {isAdmin ? 'Client Projects' : 'My Projects'}
+                                {isAdmin ? 'Clients' : 'My Projects'}
                             </Link>
                         ) : (
                             <>

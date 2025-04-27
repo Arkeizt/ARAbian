@@ -40,7 +40,6 @@ class HandleInertiaRequests extends Middleware
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
         $user = $request->user();
-        
 
         return array_merge(parent::share($request), [
             'auth' => [

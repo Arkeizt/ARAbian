@@ -1,4 +1,4 @@
-import { LayoutGrid } from 'lucide-react';
+import { LayoutGrid, Clipboard } from 'lucide-react';
 import { usePage } from '@inertiajs/react';
 import type { LucideIcon } from 'lucide-react';
 import type { SharedData } from '@/types';
@@ -10,13 +10,23 @@ interface NavItem {
 }
 
 function resolveNavItems(isAdmin: boolean): NavItem[] {
-    return [
+    const navItems: NavItem[] = [
         {
-            title: isAdmin ? 'Client Projects' : 'My Projects',
-            href: isAdmin ? '/admin/projects' : '/my-projects',
+            title: isAdmin ? 'Clients' : 'My Projects',
+            href: isAdmin ? '/admin/clients' : '/my-projects',
             icon: LayoutGrid,
         },
     ];
+
+    if (isAdmin) {
+        navItems.push({
+            title: 'Client Requests',
+            href: '/admin/client-requests',
+            icon: Clipboard,
+        });
+    }
+
+    return navItems;
 }
 
 export function useNavItems(): NavItem[] {

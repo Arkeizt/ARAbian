@@ -17,10 +17,10 @@ class ClientController extends Controller
         }
         
         $clients = User::doesntHave('roles')
-            ->select('id', 'name', 'email')
+            ->select('id', 'name', 'avatar')
             ->get();
 
-        return Inertia::render('admin/admin-projects', [
+        return Inertia::render('admin/clients', [
             'clients' => $clients,
         ]);
     }

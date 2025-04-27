@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ClientRequestsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -15,10 +16,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     
-    Route::get('/admin/projects', [ClientController::class, 'index'])
+    Route::get('/admin/clients', [ClientController::class, 'index'])
         ->middleware(['auth', 'can:manage client projects'])
-        ->name('admin.projects');
+        ->name('clients');
     
+        Route::get('/admin/client-requests', [ClientRequestsController::class, 'index'])
+        ->middleware(['auth', 'can:manage client projects'])
+        ->name('client.requests');
     
     Route::get('/my-projects', function () {
         return Inertia::render('user/my-projects');
