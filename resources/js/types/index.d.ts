@@ -47,3 +47,8 @@ export interface User {
     [key: string]: unknown;
 }
 
+interface Client {
+    id: number;
+    name: string;
+    email: string;
+  }
