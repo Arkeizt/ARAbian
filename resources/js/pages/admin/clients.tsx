@@ -1,15 +1,16 @@
 import AppLayout from '@/layouts/app-layout';
 import { useInitials } from '@/hooks/use-initials';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { type Client } from '@/types';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { route } from 'ziggy-js';
 import {
     Table,
     TableBody,
     TableCaption,
-    TableCell,
+    TableCell,  
     TableHead,
     TableHeader,
     TableRow,
@@ -27,7 +28,7 @@ export default function Clients({ clients }: {clients: Client[]}) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Clients" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">  
                 <Table>
                     <TableCaption>Admin View.</TableCaption>
                     <TableHeader>
@@ -52,7 +53,9 @@ export default function Clients({ clients }: {clients: Client[]}) {
                                     </TableCell>
                                     <TableCell>{client.name}</TableCell>
                                     <TableCell className="text-right">
-                                        <Button>View</Button>
+                                        <Link href = {route('clients.show', client.id)}>
+                                            <Button>View</Button>
+                                        </Link>
                                     </TableCell>
                                 </TableRow>
                                 ))

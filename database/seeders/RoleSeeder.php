@@ -14,8 +14,10 @@ class RoleSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        $role_admin = Role::create(['name' => 'admin']);
+    {   
+        Role::findOrCreate('client');
+        $role_admin = Role::findOrCreate('admin');
+
         $permission_manage_client_projects = Permission::create(['name'=> 'manage client projects']);
 
         $role_admin->givePermissionTo($permission_manage_client_projects);

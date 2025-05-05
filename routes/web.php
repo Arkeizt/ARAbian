@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ClientRequestsController;
+use App\Http\Controllers\Admin\ClientShowController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,12 +18,16 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/admin/clients', [ClientController::class, 'index'])
-        ->middleware(['auth', 'can:manage client projects'])
+        ->middleware(['can:manage client projects'])
         ->name('clients');
     
-        Route::get('/admin/client-requests', [ClientRequestsController::class, 'index'])
-        ->middleware(['auth', 'can:manage client projects'])
+    Route::get('/admin/client-requests', [ClientRequestsController::class, 'index'])
+        ->middleware(['can:manage client projects'])
         ->name('client.requests');
+
+    Route::get('/admin/clients/{client}', [ClientShowController::class, 'index'])
+        ->middleware(['can:manage client projects'])
+        ->name('clients.show');
     
     Route::get('/my-projects', function () {
         return Inertia::render('user/my-projects');

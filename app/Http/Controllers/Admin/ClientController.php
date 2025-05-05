@@ -12,11 +12,7 @@ class ClientController extends Controller
 {
     public function index() 
     {
-        if (!auth()->user()?->hasRole('admin')) {
-            return Redirect::route('my.projects');
-        }
-        
-        $clients = User::doesntHave('roles')
+        $clients = User::role('client')
             ->select('id', 'name', 'avatar')
             ->get();
 
