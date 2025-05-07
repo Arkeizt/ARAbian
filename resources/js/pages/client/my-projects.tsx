@@ -29,8 +29,8 @@ export default function MyProjects() {
                     <TableHeader>
                         <TableRow>
                         <TableHead className="w-[100px]">Projects</TableHead>
-                        <TableHead>Ling gang</TableHead>
-                        <TableHead>guli guli</TableHead>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Status</TableHead>
                         <TableHead className="text-right"></TableHead>
                         </TableRow>
                     </TableHeader>

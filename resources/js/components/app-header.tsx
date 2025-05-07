@@ -117,9 +117,11 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         <div className="relative flex items-center space-x-1">
                             <div className="hidden lg:flex">
                                 {!isAdmin && (
-                                    <Button>
-                                        Request a Project
-                                    </Button>
+                                    <Link href="/request-project">
+                                        <Button>
+                                            Request a Project
+                                        </Button>
+                                    </Link>
                                 )}
                                 {rightNavItems.map((item) => (
                                     <TooltipProvider key={item.title} delayDuration={0}>

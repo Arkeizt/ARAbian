@@ -30,8 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('clients.show');
     
     Route::get('/my-projects', function () {
-        return Inertia::render('user/my-projects');
-    })->middleware(['auth'])->name('my.projects');
+        return Inertia::render('client/my-projects');
+    })->name('my.projects');
 });
 
 require __DIR__.'/settings.php';

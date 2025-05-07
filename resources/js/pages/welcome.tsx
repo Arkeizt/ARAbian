@@ -42,8 +42,42 @@ export default function Welcome() {
                     </nav>
                 </header>
                 <div className="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
-                    <div className="inline-flex items-center justify-center rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] h-[50vh] w-[50vw]">
-                        <h1 className="text-center text-[#1b1b18] dark:text-[#EDEDEC]">Arabian: Land Surveying & Construction Progress Tracker</h1>
+                    <div className="inline-flex items-center justify-center rounded-sm border border-[#19140035] p-4 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] h-[50vh] w-[50vw] overflow-hidden">
+                        <div className="flex w-full h-full flex-col lg:flex-row">
+                            <div className="flex w-full lg:w-1/2 flex-col items-center justify-center p-4 h-full">
+                                <h1 className="text-center text-[#1b1b18] dark:text-[#EDEDEC]">
+                                    Arabian: Land Surveying & Construction Progress Tracker
+                                </h1>
+                                <a href="https://www.facebook.com/profile.php?id=100054545585447" target="_blank" className="flex items-center gap-1 text-sm text-blue-600 hover:underline">
+                                    <span>Follow our Facebook Page</span>
+                                    <svg
+                                        width={10}
+                                        height={11}
+                                        viewBox="0 0 10 11"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-2.5 w-2.5"
+                                    >
+                                        <path
+                                            d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001"
+                                            stroke="currentColor"
+                                            strokeLinecap="square"
+                                        />
+                                    </svg>  
+                                </a>             
+                            </div>
+                            <div className="hidden lg:block w-1/2 h-full rounded-r-sm">
+                                <img
+                                    src="/welcome.jpg"
+                                    alt="Surveying"
+                                    className="w-full h-full object-cover rounded-r-sm"
+                                    style={{
+                                        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
+                                        maskImage: 'linear-gradient(to right, transparent 0%, black 50%)'
+                                    }}    
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="hidden h-14.5 lg:block"></div>
