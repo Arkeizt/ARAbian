@@ -16,74 +16,80 @@ export default function RequestProject() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // You can post the form to your backend here using fetch or Inertia
         console.log('Form submitted:', form);
     };
 
     return (
         <>
             <Head title="Request a Project" />
-            <div className="min-h-screen bg-white p-6 dark:bg-[#0a0a0a] dark:text-white">
-                <div className="max-w-xl mx-auto">
-                    <h1 className="text-2xl font-bold mb-4">Request a Geodetic Surveying Project</h1>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 py-10 px-4">
+                <div className="max-w-2xl mx-auto bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-8">
+                    <h1 className="text-3xl font-semibold text-center text-gray-800 dark:text-white mb-6">
+                        Request a Geodetic Surveying Project
+                    </h1>
+                    <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-sm font-medium mb-1">Name</label>
+                            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Full Name</label>
                             <input
                                 type="text"
                                 name="name"
                                 value={form.name}
                                 onChange={handleChange}
-                                className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-800"
+                                placeholder="Juan Dela Cruz"
+                                className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Email</label>
+                            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Email Address</label>
                             <input
                                 type="email"
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
-                                className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-800"
+                                placeholder="juan@example.com"
+                                className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Project Type</label>
+                            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Project Type</label>
                             <input
                                 type="text"
                                 name="projectType"
                                 value={form.projectType}
                                 onChange={handleChange}
-                                className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-800"
+                                placeholder="Boundary Survey, Topographic Mapping, etc."
+                                className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Location</label>
+                            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Location</label>
                             <input
                                 type="text"
                                 name="location"
                                 value={form.location}
                                 onChange={handleChange}
-                                className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-800"
+                                placeholder="e.g. Davao City, Philippines"
+                                className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Additional Details</label>
+                            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Additional Details</label>
                             <textarea
                                 name="message"
                                 value={form.message}
                                 onChange={handleChange}
-                                rows={4}
-                                className="w-full border border-gray-300 rounded px-3 py-2 dark:bg-gray-800"
+                                placeholder="Please describe your project requirements in detail..."
+                                rows={5}
+                                className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            className="w-full py-3 rounded-lg text-white font-semibold bg-blue-600 hover:bg-blue-700 transition duration-200"
                         >
                             Submit Request
                         </button>
