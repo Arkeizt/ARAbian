@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Inertia\Inertia;
-use App\Models\ClientRequests;
+use App\Models\ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -48,7 +48,7 @@ class ClientRequestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ClientRequests $clientRequests)
+    public function show(ClientRequest $clientRequests)
     {
         //
     }
@@ -56,7 +56,7 @@ class ClientRequestController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ClientRequests $clientRequests)
+    public function edit(ClientRequest $clientRequests)
     {
         //
     }
@@ -64,7 +64,7 @@ class ClientRequestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ClientRequests $clientRequests)
+    public function update(Request $request, ClientRequest $clientRequests)
     {
         //
     }
@@ -72,7 +72,7 @@ class ClientRequestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClientRequests $clientRequests)
+    public function destroy(ClientRequest $clientRequests)
     {
         //
     }
