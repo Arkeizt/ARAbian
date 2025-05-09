@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_requests', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->enum('type', ['SURVEY', 'CONSTRUCTION']);
-            $table->string('address');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('file_name');
+            $table->string('file_url');
+            $table->enum('media_type', ['IMAGE', 'VIDEO', 'DOCUMENT']);
             $table->timestamps();
-        });
+        });        
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_requests');
+        Schema::dropIfExists('media');
     }
 };

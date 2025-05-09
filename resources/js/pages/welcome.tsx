@@ -1,5 +1,6 @@
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
+import AppLogoIcon from '../components/app-logo-icon';
 
 export default function Welcome() {
     const { auth, isAdmin } = usePage<SharedData>().props;
@@ -44,8 +45,19 @@ export default function Welcome() {
                     <div className="inline-flex items-center justify-center rounded-sm border border-[#19140035] p-4 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] h-[50vh] w-full max-w-5xl overflow-hidden">
                         <div className="flex w-full h-full flex-col lg:flex-row">
                             <div className="flex w-full lg:w-1/2 flex-col items-center justify-center p-4 h-full">
+                                <div className="flex items-center justify-center">
+                                    <div className="bg-white text-sidebar-primary-foreground flex aspect-square size-20 p-1 items-center justify-center rounded-md">
+                                        <AppLogoIcon/>
+                                    </div>
+                                    <h1 className="text-center text-[#461cb9] font-bold text-xl">
+                                        AR
+                                    </h1>
+                                    <h1 className="text-center text-[#B91C1C] font-bold text-xl">
+                                        Abian
+                                    </h1>
+                                </div>
                                 <h1 className="text-center text-[#B91C1C] dark:text-[#FCA5A5] font-bold text-xl">
-                                    Arabian: Land Surveying & Construction Progress Tracker
+                                    Land Surveying & Construction Progress Tracker
                                 </h1>
                                 <a href="https://www.facebook.com/profile.php?id=100054545585447" target="_blank" className="flex items-center gap-1 text-sm text-red-600 hover:underline mt-2">
                                     <span>Follow our Facebook Page</span>
@@ -104,11 +116,11 @@ export default function Welcome() {
                     <h2 className="text-2xl font-semibold text-[#B91C1C] mb-6 text-center">What Our Clients Say</h2>
                     <div className="space-y-6">
                         <blockquote className="text-sm border-l-4 border-red-400 pl-4 italic">
-                            “Arabian has transformed the way we manage and monitor land surveying projects. Highly recommended!”<br />
+                            “ARAbian has transformed the way we manage and monitor land surveying projects. Highly recommended!”<br />
                             <span className="block text-right text-xs font-medium mt-2">— Engr. Paimon</span>
                         </blockquote>
                         <blockquote className="text-sm border-l-4 border-red-400 pl-4 italic">
-                            “Thanks to Arabian, our project timelines are easier to manage and communicate with clients.”<br />
+                            “Thanks to ARAbian, our project timelines are easier to manage and communicate with clients.”<br />
                             <span className="block text-right text-xs font-medium mt-2">— Kaveh, Arki sa Sumeru</span>
                         </blockquote>
                     </div>
@@ -116,7 +128,7 @@ export default function Welcome() {
 
                 {/* FOOTER */}
                 <footer className="w-full py-6 text-center text-xs text-[#6b6b6b] dark:text-[#aaa] mt-12">
-                    &copy; 2005 Arabian. All rights reserved.
+                    &copy; 2005 ARAbian. All rights reserved.
                 </footer>
             </div>
         </>

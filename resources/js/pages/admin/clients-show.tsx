@@ -11,7 +11,7 @@ export default function ClientsShow({ client }: {client: Client}) {
             href: '/admin/clients',
         },
         {
-            title: 'Client Show',
+            title: `${client.name}`,
             href: `/admin/clients/${client.id}`,
         },
     ];
