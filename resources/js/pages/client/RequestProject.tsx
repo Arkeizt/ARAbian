@@ -24,6 +24,16 @@ export default function RequestProject() {
             <Head title="Request a Project" />
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 py-10 px-4">
                 <div className="max-w-2xl mx-auto bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-8">
+
+                    {/* Back Button */}
+                    <button
+                        type="button"
+                        onClick={() => router.visit('/')}
+                        className="mb-6 inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition duration-150"
+                    >
+                        ← Back
+                    </button>
+
                     <h1 className="text-3xl font-semibold text-center text-gray-800 dark:text-white mb-6">
                         Request a Geodetic Surveying Project
                     </h1>
