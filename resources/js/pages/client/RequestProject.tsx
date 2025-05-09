@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, router } from '@inertiajs/react';
+import { Head, router, Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -34,13 +34,9 @@ export default function RequestProject() {
             <div className="flex flex-col gap-6 p-4 max-w-2xl mx-auto bg-white dark:bg-gray-900 shadow-xl rounded-2xl">
                 
                 {/* Back Button */}
-                <button
-                    type="button"
-                    onClick={() => router.visit('/')}
-                    className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition duration-150"
-                >
-                    ← Back
-                </button>
+                <Link href = {route('my.projects')} className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition duration-150">
+                ← Back
+                </Link>
 
                 <h1 className="text-3xl font-semibold text-center text-gray-800 dark:text-white">
                     Request a Geodetic Surveying Project
