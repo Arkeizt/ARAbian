@@ -9,7 +9,7 @@ use App\Models\ClientRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class ClientRequestsController extends Controller
+class ClientRequestController extends Controller
 {
     /**
      * Display a listing of the resource.

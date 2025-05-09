@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\ClientRequestsController;
+use App\Http\Controllers\Admin\ClientRequestController;
 use App\Http\Controllers\Admin\ClientShowController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware(['can:manage client projects'])
         ->name('clients');
     
-    Route::get('/admin/client-requests', [ClientRequestsController::class, 'index'])
+    Route::get('/admin/client-requests', [ClientRequestController::class, 'index'])
         ->middleware(['can:manage client projects'])
         ->name('client.requests');
 
