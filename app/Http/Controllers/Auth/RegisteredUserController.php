@@ -48,6 +48,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return to_route('my.projects');
+        return to_route('my.projects.index');
     }
 }

@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         if ($user->hasRole('admin')) {
             return redirect()->intended(route('clients', absolute: false));
         } else {
-            return redirect()->intended(route('my.projects', absolute: false));
+            return redirect()->intended(route('my.projects.index', absolute: false));
         }
     }
 

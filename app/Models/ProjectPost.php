@@ -9,7 +9,11 @@ class ProjectPost extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'project_id'];
+    protected $fillable = [
+        'title', 
+        'description', 
+        'project_id'
+    ];
 
     public function project()
     {

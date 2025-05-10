@@ -53,6 +53,10 @@ class HandleInertiaRequests extends Middleware
                 'canManageProjects' => $user ? $user->can('manage client projects') : false,
                 'isAdmin'           => $user && $user->hasRole('admin'),
             ],
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error'   => fn () => $request->session()->get('error'),
+            ],
         ]);
     }
 }
