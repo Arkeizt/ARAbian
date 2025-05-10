@@ -3,31 +3,33 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project;
+use App\Models\ClientRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class MyProjectController extends Controller
+
+class MyRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $projects = Project::where('user_id', Auth::id())->get();
+        $requests = ClientRequest::where('user_id', auth()->id())->get();
 
-        return Inertia::render('client/my-projects', [
-            'projects' => $projects,
+        return Inertia::render('client/my-requests', [
+            'requests' => $requests, // Send the requests data here
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-
+        //
     }
 
     /**

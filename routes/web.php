@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ClientRequestController;
 use App\Http\Controllers\Admin\ClientShowController;
 use App\Http\Controllers\Client\MyProjectController;
+use App\Http\Controllers\Client\MyRequestController;
 use App\Http\Controllers\Client\RequestProjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->names('my.projects');
     
     Route::resource('request-project', RequestProjectController::class)
-        ->names('request-project');
+        ->names('request.project');
+
+    Route::resource('my-requests', MyRequestController::class)
+        ->names('my.requests');
     
     
 });

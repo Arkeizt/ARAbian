@@ -16,16 +16,12 @@ function resolveNavItems(isAdmin: boolean): NavItem[] {
             href: isAdmin ? '/admin/clients' : '/my-projects',
             icon: LayoutGrid,
         },
-    ];
-
-    if (isAdmin) {
-        navItems.push({
-            title: 'Client Requests',
-            href: '/admin/client-requests',
+        {
+            title: isAdmin ? 'Client Requests' : 'My Requests',
+            href: isAdmin ? '/admin/client-requests' : '/my-requests',
             icon: Clipboard,
-        });
-    }
-
+        },
+    ];
     return navItems;
 }
 

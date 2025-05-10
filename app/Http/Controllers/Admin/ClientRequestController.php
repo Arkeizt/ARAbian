@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Inertia\Inertia;
 use App\Models\ClientRequest;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -14,18 +14,20 @@ class ClientRequestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() 
+    public function index()
     {
+        // Only allow admin to access
         if (!auth()->user()?->hasRole('admin')) {
             return Redirect::route('my.projects');
         }
-        
-        $clients = User::doesntHave('roles')
-            ->select('id', 'name', 'avatar')
+
+        // Fetch all client requests, including user info (who made the request)
+        $requests = ClientRequest::with('user:id,name,avatar')
+            ->orderBy('created_at', 'asc')
             ->get();
 
         return Inertia::render('admin/client-requests', [
-            'clients' => $clients,
+            'requests' => $requests,
         ]);
     }
 

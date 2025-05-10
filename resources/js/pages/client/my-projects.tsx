@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { usePage } from '@inertiajs/react'; 
-import { type BreadcrumbItem } from '@/types';
+import { FlashProps, Project, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import {
@@ -23,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function MyProjects() {
-    const { flash } = usePage().props as { flash: { success?: string; error?: string } }; //ayuson pa ni sa index.d.ts pero working ni sya gihapon, oa ra typescript
+    const { flash, projects } = usePage<FlashProps & { projects: Project[] }>().props;
 
     useEffect(() => {
         if (flash?.success) {
@@ -57,7 +57,16 @@ export default function MyProjects() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-
+                            {projects.map((project) => (
+                                <TableRow key={project.id}>
+                                    <TableCell>{project.id}</TableCell>
+                                    <TableCell>{project.title}</TableCell>
+                                    <TableCell>{project.type}</TableCell>
+                                    <TableCell className="text-right">
+                                        {/* You can add actions or buttons here */}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </div>

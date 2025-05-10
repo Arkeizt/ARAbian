@@ -7,7 +7,6 @@ export interface Auth {
     canManageProjects: boolean;
 }
 
-
 export interface BreadcrumbItem {
     title: string;
     href: string;
@@ -47,9 +46,36 @@ export interface User {
     [key: string]: unknown;
 }
 
-interface Client {
+export interface Client {
     id: number;
     name: string;
     email: string;
     avatar?: string;
+}
+
+export interface FlashProps {
+    flash: {
+      success?: string;
+      error?: string;
+    };
+    [key: string]: unknown;
+}
+export interface Project {
+    id: number;
+    title: string;
+    type: string;
+    [key: string]: unknown;
+}
+
+export interface ClientRequest {
+    id: number;
+    title: string;
+    description: string;
+    type: 'SURVEY' | 'CONSTRUCTION';
+    address: string;
+    user_id: number;
+    created_at: string;
+    updated_at: string;
+    user?: Pick<User, 'id' | 'name' | 'avatar'> | null;
+    [key: string]: unknown;
 }

@@ -117,7 +117,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         <div className="relative flex items-center space-x-1">
                             <div className="hidden lg:flex">
                                 {!isAdmin && (
-                                    <Link href={route('request-project.create')}>
+                                    <Link href={route('request.project.create')}>
                                         <Button>
                                             Request a Project
                                         </Button>

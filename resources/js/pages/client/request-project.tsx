@@ -22,7 +22,7 @@ export default function RequestProject() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('request-project.store'));
+        post(route('request.project.store'));
     };
 
     return (
