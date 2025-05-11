@@ -13,12 +13,12 @@ function resolveNavItems(isAdmin: boolean): NavItem[] {
     const navItems: NavItem[] = [
         {
             title: isAdmin ? 'Clients' : 'My Projects',
-            href: isAdmin ? '/admin/clients' : '/my-projects',
+            href: isAdmin ? route('clients.index') : '/my-projects',
             icon: LayoutGrid,
         },
         {
             title: isAdmin ? 'Client Requests' : 'My Requests',
-            href: isAdmin ? '/admin/client-requests' : '/my-requests',
+            href: isAdmin ? route('client.requests.index') : route('my.requests.index'),
             icon: Clipboard,
         },
     ];

@@ -20,4 +20,11 @@ class ClientController extends Controller
             'clients' => $clients,
         ]);
     }
+
+    public function show(User $client) 
+    {
+        return Inertia::render('admin/clients-show', [
+            'client' => $client,
+        ]);
+    }
 }

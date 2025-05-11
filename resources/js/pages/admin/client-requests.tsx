@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { ClientRequest, type BreadcrumbItem } from '@/types';
 import { useInitials } from '@/hooks/use-initials';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, usePage, Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -34,7 +34,7 @@ export default function ClientRequests() {
                 <TableCaption>List of all client requests.</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-[80px]">ID</TableHead>
+                        <TableHead className="w-[80px] text-center">Request</TableHead>
                         <TableHead>Title</TableHead>
                         <TableHead>Requested by</TableHead>
                         <TableHead className="text-right"></TableHead>
@@ -43,7 +43,7 @@ export default function ClientRequests() {
                 <TableBody className='items-center'>
                     {requests.map((request) => (
                     <TableRow key={request.id}>
-                        <TableCell>{request.id}</TableCell>
+                        <TableCell className='text-center'>{request.id}</TableCell>
                         <TableCell>
                             <div className='flex justify gap-4'>
                                 {request.title}
@@ -53,19 +53,23 @@ export default function ClientRequests() {
                             </div>
                         </TableCell>
                         <TableCell>
-                            <div className='flex justify gap-4 items-center'>
-                                <Avatar className="size-8 overflow-hidden rounded-full">
-                                    <AvatarImage src={request.user?.avatar} alt={request.user?.name} />
-                                    <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                        {getInitials(request.user?.name ?? 'Unknown')}
-                                    </AvatarFallback>
-                                </Avatar>
-                                {request.user?.name ?? 'Unknown'}
-                            </div>
+                            <Link href={route('clients.show', request.user?.id) + '?from=client-requests'}>
+                                <div className='flex justify gap-4 items-center'>
+                                    <Avatar className="size-8 overflow-hidden rounded-full">
+                                        <AvatarImage src={request.user?.avatar} alt={request.user?.name} />
+                                        <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                            {getInitials(request.user?.name ?? 'Unknown')}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    {request.user?.name ?? 'Unknown'}
+                                </div>
+                            </Link>
                         </TableCell>
                         <TableCell className="text-right">
                             <Button>
-                                View
+                                <Link href={route('client.requests.show', request.id)}>
+                                    View
+                                </Link>
                             </Button>
                         </TableCell>
                     </TableRow>

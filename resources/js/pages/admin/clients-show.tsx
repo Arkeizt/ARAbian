@@ -1,15 +1,17 @@
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { type Client } from '@/types';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 
 export default function ClientsShow({ client }: {client: Client}) {
+    const { url } = usePage();
+    const searchParams = new URLSearchParams(url.split('?')[1]);
+    const from = searchParams.get('from');
+
     const breadcrumbs: BreadcrumbItem[] = [
-        {
-            title: 'Clients',
-            href: '/admin/clients',
-        },
+        from?.startsWith('client-requests')
+            ? { title: 'Client Requests', href: '/admin/client-requests' }
+            : { title: 'Clients', href: '/admin/clients' },
         {
             title: `${client.name}`,
             href: `/admin/clients/${client.id}`,

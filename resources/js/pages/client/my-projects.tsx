@@ -3,6 +3,7 @@ import { usePage } from '@inertiajs/react';
 import { FlashProps, Project, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
+import { Button } from "@/components/ui/button";
 import {
     Table,
     TableBody,
@@ -63,7 +64,9 @@ export default function MyProjects() {
                                     <TableCell>{project.title}</TableCell>
                                     <TableCell>{project.type}</TableCell>
                                     <TableCell className="text-right">
-                                        {/* You can add actions or buttons here */}
+                                        <Button>
+                                            View
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                             ))}

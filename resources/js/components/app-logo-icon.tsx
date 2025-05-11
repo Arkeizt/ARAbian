@@ -6,8 +6,8 @@ interface AppLogoIconProps extends SVGAttributes<SVGElement> {
 
 export default function AppLogoIcon({ className = '' }: AppLogoIconProps) {
     return (
-        <svg width="723" height="720" viewBox="0 0 723 720" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="371.5" cy="369" rx="238.5" ry="275" stroke="#323799" stroke-width="33"/>
+        <svg viewBox="0 0 723 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="371.5" cy="369" rx="238.5" ry="275" stroke="#323799" strokeWidth="33"/>
             <rect y="353" width="723" height="13" fill="#1B1B1B"/>
             <rect x="356" width="12" height="720" fill="#1B1B1B"/>
             <rect y="340" width="24" height="40" fill="#1B1B1B"/>

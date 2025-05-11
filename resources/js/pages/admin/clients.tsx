@@ -35,6 +35,7 @@ export default function Clients({ clients }: {clients: Client[]}) {
                         <TableRow>
                         <TableHead className="w-[100px]">Clients</TableHead>
                         <TableHead>Name</TableHead>
+                        <TableHead></TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

@@ -50,10 +50,21 @@ class ClientRequestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ClientRequest $clientRequests)
+    public function show(ClientRequest $clientRequest)
     {
-        //
+        // Only allow admin to access
+        if (!auth()->user()?->hasRole('admin')) {
+            return Redirect::route('my.projects');
+        }
+
+        // Eager load the user info (who made the request)
+        $clientRequest->load('user:id,name,avatar');
+
+        return Inertia::render('admin/client-request-show', [
+            'request' => $clientRequest,
+        ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

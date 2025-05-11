@@ -20,17 +20,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     
-    Route::get('/admin/clients', [ClientController::class, 'index'])
+    Route::resource('/admin/clients', ClientController::class)
         ->middleware(['can:manage client projects'])
-        ->name('clients');
+        ->names('clients');
     
-    Route::get('/admin/client-requests', [ClientRequestController::class, 'index'])
+    Route::resource('/admin/client-requests', ClientRequestController::class)
         ->middleware(['can:manage client projects'])
-        ->name('client.requests');
-
-    Route::get('/admin/clients/{client}', [ClientShowController::class, 'index'])
-        ->middleware(['can:manage client projects'])
-        ->name('clients.show');
+        ->names('client.requests');
 
     Route::resource('my-projects', MyProjectController::class)
         ->names('my.projects');
