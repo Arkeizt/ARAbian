@@ -12,6 +12,7 @@ class ClientRequest extends Model
         'title',
         'description',
         'type',
+        'status',
         'address',
         'user_id',
     ];

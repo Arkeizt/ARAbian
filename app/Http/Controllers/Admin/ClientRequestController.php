@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Project;
 use App\Models\ClientRequest;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -77,10 +77,33 @@ class ClientRequestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ClientRequest $clientRequests)
+    public function update(Request $request, ClientRequest $clientRequest)
     {
-        //
+        $validatedStatus = $request->validate([
+            'status' => 'required|in:APPROVED,REJECTED',
+        ]);
+
+        if ($clientRequest->status !== 'FOR_REVIEW') {
+            return redirect()->route('client.requests.index')
+                ->with('error', 'This request has already been processed.');
+        }
+
+        $clientRequest->update([
+            'status' => $validatedStatus['status'],
+        ]);
+
+        if ($validatedStatus['status'] === 'APPROVED') {
+            Project::create([
+                'title'   => $clientRequest->title,
+                'type'    => $clientRequest->type,
+                'user_id' => $clientRequest->user_id,
+            ]);
+        }
+
+        return redirect()->route('client.requests.index')
+            ->with('success', 'Request updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.

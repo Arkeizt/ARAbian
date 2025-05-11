@@ -63,7 +63,8 @@ export interface FlashProps {
 export interface Project {
     id: number;
     title: string;
-    type: string;
+    type: 'SURVEY' | 'CONSTRUCTION';
+    status: 'ONGOING' | 'ON_HOLD' | 'COMPLETED' | 'CANCELLED';
     [key: string]: unknown;
 }
 
@@ -72,6 +73,7 @@ export interface ClientRequest {
     title: string;
     description: string;
     type: 'SURVEY' | 'CONSTRUCTION';
+    status: 'FOR_REVIEW' | 'APPROVED' | 'REJECTED';
     address: string;
     user_id: number;
     created_at: string;

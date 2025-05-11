@@ -47,7 +47,7 @@ class RequestProjectController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('my.projects.index')->with('success', 'Your project request has been submitted and will be reviewed by an admin shortly.');
+        return redirect()->route('my.requests.index')->with('success', 'Your project request has been submitted and will be reviewed by an admin shortly.');
     }
 
     /**

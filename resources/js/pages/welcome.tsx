@@ -40,26 +40,36 @@ export default function Welcome() {
                     </nav>
                 </header>
 
-                {/* HERO */}
                 <div className="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0 px-6 lg:px-8">
-                    <div className="inline-flex items-center justify-center rounded-sm border border-[#19140035] p-4 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] h-[50vh] w-full max-w-5xl overflow-hidden">
+                    <div className="flex items-center justify-center rounded-sm border border-[#19140035] p-4 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] h-[50vh] w-full max-w-5xl overflow-hidden">
                         <div className="flex w-full h-full flex-col lg:flex-row">
-                            <div className="flex w-full lg:w-1/2 flex-col items-center justify-center p-4 h-full">
-                                <div className="flex items-center justify-center">
-                                    <div className="bg-white text-sidebar-primary-foreground flex aspect-square size-20 p-1 items-center justify-center rounded-md">
-                                        <AppLogoIcon/>
+                            {/* Left Column — Logo + Text Content */}
+                            <div className="flex w-full lg:w-1/2 flex-col justify-center p-4">
+
+                                {/* Logo + Title Box — Top of Left Column */}
+                                <div className="bg-white rounded-md p-1 flex items-center w-max">
+
+                                    <div className="bg-white flex aspect-square size-10 p-1 items-center justify-center rounded">
+                                        <AppLogoIcon />
                                     </div>
-                                    <h1 className="text-center text-[#461cb9] font-bold text-xl">
-                                        AR
-                                    </h1>
-                                    <h1 className="text-center text-[#B91C1C] font-bold text-xl">
-                                        Abian
+                                    <h1 className="text-[#461cb9] font-bold text-xl leading-tight pr-2">
+                                        <span className="text-[#461cb9]">AR</span><span className="text-[#B91C1C]">Abian</span>
                                     </h1>
                                 </div>
-                                <h1 className="text-center text-[#B91C1C] dark:text-[#FCA5A5] font-bold text-xl">
-                                    Land Surveying & Construction Progress Tracker
+
+                                <h1 className="text-[#B91C1C] dark:text-[#FCA5A5] font-bold text-lg mb-2">
+                                Land Surveying & Construction Progress Tracker
                                 </h1>
-                                <a href="https://www.facebook.com/profile.php?id=100054545585447" target="_blank" className="flex items-center gap-1 text-sm text-red-600 hover:underline mt-2">
+                                
+                                <div className='ml-6'>
+                                    <h2><strong>Services Provided</strong></h2>
+                                    <ul className="list-disc list-inside text-sm space-y-1 ml-4">
+                                        <li>Boundary & topographic surveys</li>
+                                        <li>Site surveys & staking</li>
+                                        <li>Construction supervision</li>
+                                        <li>Site preparation</li>
+                                    </ul>
+                                    <a href="https://www.facebook.com/profile.php?id=100054545585447" target="_blank" className="flex items-center gap-1 text-sm text-red-600 hover:underline mt-4">
                                     <span>Follow our Facebook Page</span>
                                     <svg
                                         width={10}
@@ -70,22 +80,24 @@ export default function Welcome() {
                                         className="h-2.5 w-2.5"
                                     >
                                         <path
-                                            d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001"
-                                            stroke="currentColor"
-                                            strokeLinecap="square"
+                                        d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001"
+                                        stroke="currentColor"
+                                        strokeLinecap="square"
                                         />
-                                    </svg>  
-                                </a>             
+                                    </svg>
+                                    </a>
+                                </div>
                             </div>
-                            <div className="hidden lg:block w-1/2 h-full rounded-r-sm">
+
+                            <div className="relative hidden lg:block w-1/2 h-full rounded-r-sm">
                                 <img
-                                    src="/welcome.jpg"
-                                    alt="Surveying"
-                                    className="w-full h-full object-cover rounded-r-sm"
-                                    style={{
-                                        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
-                                        maskImage: 'linear-gradient(to right, transparent 0%, black 50%)'
-                                    }}    
+                                src="/welcome.jpg"
+                                alt="Surveying"
+                                className="w-full h-full object-cover rounded-r-sm"
+                                style={{
+                                    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
+                                    maskImage: 'linear-gradient(to right, transparent 0%, black 50%)'
+                                }}
                                 />
                             </div>
                         </div>

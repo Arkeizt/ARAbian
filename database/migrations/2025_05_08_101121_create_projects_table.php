@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->enum('type', ['SURVEY', 'CONSTRUCTION']);
+            $table->enum('status', ['ONGOING', 'ON_HOLD', 'COMPLETED', 'CANCELLED'])->default('ONGOING');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
