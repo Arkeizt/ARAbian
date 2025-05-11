@@ -4,7 +4,7 @@ interface AppLogoIconProps extends SVGAttributes<SVGElement> {
     className?: string; // Allow custom className to be passed
 }
 
-export default function AppLogoIcon({ className = '' }: AppLogoIconProps) {
+export default function AppLogoIcon({ className = '', ...props}: AppLogoIconProps) {
     return (
         <svg viewBox="0 0 723 720" fill="none" xmlns="http://www.w3.org/2000/svg">
             <ellipse cx="371.5" cy="369" rx="238.5" ry="275" stroke="#323799" strokeWidth="33"/>

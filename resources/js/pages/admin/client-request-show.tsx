@@ -16,11 +16,14 @@ export default function ClientRequestShow({ request }: { request: ClientRequest 
 
     const breadcrumbs: BreadcrumbItem[] = [
         { title: 'Client Requests', href: '/admin/client-requests' },
+        ...(from
+            ? [{ title: 'Back to Previous', href: `/${from}` }]
+            : []),
         {
             title: `Request #${request.id}`,
             href: `/admin/client-requests/${request.id}`,
         },
-    ];
+    ];    
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
