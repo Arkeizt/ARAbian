@@ -5,8 +5,17 @@ import { Head, usePage, Link } from '@inertiajs/react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Badge } from "@/components/ui/badge";
 import { route } from 'ziggy-js';
+import { Separator } from "@/components/ui/separator";
 import { useInitials } from '@/hooks/use-initials';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+  } from "@/components/ui/carousel"
+  
 
 export default function ClientProjectsShow() {
     const getInitials = useInitials();
@@ -66,7 +75,7 @@ export default function ClientProjectsShow() {
                     </CardHeader>
                     <CardContent>
                         <Link 
-                            href={`/admin/project-posts/create?project_id=${project.id}`} 
+                            href={route('client.project.posts.create', { projectId: project.id })}
                             className="text-blue-500 hover:underline"
                         >
                             + Add New Post
@@ -74,30 +83,72 @@ export default function ClientProjectsShow() {
                     </CardContent>
                 </Card>
 
-                <div className='space-y-4'>
-                    {posts.map((post) => (
-                        <Card key={post.id}>
-                            <CardHeader>
-                                <h2 className='text-lg font-semibold'>{post.title}</h2>
-                                <p className='text-gray-600'>{post.description}</p>
-                            </CardHeader>
-                            <CardContent className='space-y-2'>
-                                {post.media.length > 0 ? (
-                                    post.media.map((media) => (
-                                        <div key={media.id} className='border p-2 rounded'>
-                                            <p className='font-medium'>{media.file_name}</p>
-                                            <a href={media.file_url} target="_blank" rel="noopener noreferrer" className='text-blue-500 hover:underline'>
-                                                View File
-                                            </a>
-                                            <p className='text-xs text-gray-500'>{media.media_type}</p>
+                <div className='m-10 space-y-4'>
+                    <div>
+                        <span className='m-6 text-xl font-bold'>Posts</span>
+                    </div>
+                    <Separator />
+                    <div className='flex flex-col justify-center items-center space-y-4 w-full'>
+                        {posts.map((post) => (
+                            <Card key={post.id} className='w-3/4 mx-auto'>
+                                <CardHeader>
+                                    <h2 className='text-lg font-semibold'>{post.title}</h2>
+                                    <p className='text-muted-foreground'>{post.description}</p>
+                                </CardHeader>
+
+                                <CardContent className='space-y-2'>
+                                    {post.media
+                                        .filter((media) => media.media_type === 'DOCUMENT')
+                                        .map((media) => (
+                                            <div key={media.id} className='border p-2 rounded'>
+                                                <p className='font-medium'>{media.file_name}</p>
+                                                <a
+                                                href={media.file_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className='text-blue-500 hover:underline'
+                                                >
+                                                    View File
+                                                </a>
+                                                <p className='text-xs text-gray-500'>{media.media_type}</p>
+                                            </div>
+                                        ))}
+
+                                    {post.media.some((media) => media.media_type === 'IMAGE' || media.media_type === 'VIDEO') && (
+                                        <div className="relative w-full overflow-hidden rounded-lg">
+                                            <Carousel orientation="horizontal" className="space-y-4">
+                                                <CarouselContent>
+                                                    {post.media
+                                                        .filter((media) => media.media_type === 'IMAGE' || media.media_type === 'VIDEO')
+                                                        .map((media) => (
+                                                        <CarouselItem key={media.id} className="flex justify-center">
+                                                            <div className="w-full max-w-[500px] flex items-center justify-center rounded-lg overflow-hidden">
+                                                            {media.media_type === 'IMAGE' ? (
+                                                                <img
+                                                                src={media.file_url}
+                                                                alt={media.file_name}
+                                                                className="w-full h-auto max-h-[500px] object-contain"
+                                                                />
+                                                            ) : media.media_type === 'VIDEO' ? (
+                                                                <video
+                                                                controls
+                                                                src={media.file_url}
+                                                                className="w-full h-auto max-h-[500px] object-contain"
+                                                                />
+                                                            ) : null}
+                                                            </div>
+                                                        </CarouselItem>
+                                                    ))}
+                                                </CarouselContent>
+                                                <CarouselPrevious className="absolute top-1/2 left-4 transform -translate-y-1/2" />
+                                                <CarouselNext className="absolute top-1/2 right-4 transform -translate-y-1/2" />
+                                            </Carousel>
                                         </div>
-                                    ))
-                                ) : (
-                                    <p className='text-sm text-gray-400'>No media attached.</p>
-                                )}
-                            </CardContent>
-                        </Card>
-                    ))}
+                                    )}
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
             </div>
         </AppLayout>

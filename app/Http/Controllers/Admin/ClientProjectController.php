@@ -38,17 +38,12 @@ class ClientProjectController extends Controller
      */
     public function show($id)
     {
-        // Eager load relationships: user, posts, and media
         $project = Project::with([
             'user:id,name,avatar',
             'posts:id,title,description,project_id',
             'posts.media:id,file_name,file_url,media_type',
         ])->findOrFail($id);
 
-        // Log the project data to check if it has the relationships loaded correctly
-        \Log::info('Project Data:', ['project' => $project]);
-
-        // Return the Inertia response with the project data
         return Inertia::render('admin/client-projects-show', [
             'project' => $project,
             'posts' => $project->posts,

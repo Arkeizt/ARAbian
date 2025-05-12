@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ClientRequestController;
 use App\Http\Controllers\Admin\ClientProjectController;
+use App\Http\Controllers\Admin\ClientProjectPostController;
 use App\Http\Controllers\Client\MyProjectController;
 use App\Http\Controllers\Client\MyRequestController;
 use App\Http\Controllers\Client\RequestProjectController;
@@ -32,6 +33,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware(['can:manage client projects'])
         ->names('client.projects');
 
+    Route::resource('/admin/client-projects/{projectId}/posts', ClientProjectPostController::class)
+        ->middleware(['can:manage client projects'])
+        ->names('client.project.posts');
+    
     Route::resource('my-projects', MyProjectController::class)
         ->names('my.projects');
     
