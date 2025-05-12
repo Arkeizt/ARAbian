@@ -81,3 +81,28 @@ export interface ClientRequest {
     user?: Pick<User, 'id' | 'name' | 'avatar'> | null;
     [key: string]: unknown;
 }
+
+export interface Media {
+    id: number;
+    file_name: string;
+    file_url: string;
+    media_type: string;
+    [key: string]: unknown;
+}
+
+export interface ProjectPost {
+    id: number;
+    title: string;
+    description: string;
+    project: Project;
+    media: Media[];
+    [key: string]: unknown;
+}
+
+export interface ProjectWithPosts {
+    project: Project & {
+        user: Pick<User, 'id' | 'name' | 'avatar'>;
+    };
+    posts: ProjectPost[];
+    [key: string]: unknown;
+}

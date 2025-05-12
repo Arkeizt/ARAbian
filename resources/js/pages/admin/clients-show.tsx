@@ -39,11 +39,21 @@ export default function ClientsShow({ client, projects, requests }: { client: Cl
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={client.name} />
-            <Card className='mt-4 w-full'>
+            <Card className='m-4 w-full'>
                 <CardHeader className='border-b border-muted-backgroundground'>
                     <div className="flex flex-col gap-4 p-4">
-                        <h1 className="text-2xl font-bold">{client.name}</h1>
-                        <p>Email: {client.email}</p>
+                        <div className='flex items-center gap-2'>
+                            <Avatar className="size-16 overflow-hidden rounded-full">
+                                <AvatarImage src={client.avatar} alt={client.name} />
+                                <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white text-2xl">
+                                    {getInitials(client.name)}
+                                </AvatarFallback>
+                            </Avatar>
+                            <div className='flex-col'>
+                                <h1 className="text-3xl font-bold">{client.name}</h1>
+                                <p>{client.email}</p>
+                            </div>
+                        </div>
                     </div>
                 </CardHeader>
 
@@ -88,9 +98,11 @@ export default function ClientsShow({ client, projects, requests }: { client: Cl
                                                 )}
                                             </TableCell>
                                             <TableCell className="text-right">
-                                                <Button>
-                                                    View
-                                                </Button>
+                                                <Link href={route('client.projects.show', project.id)}>
+                                                    <Button>
+                                                        View
+                                                    </Button>
+                                                </Link>
                                             </TableCell>
                                         </TableRow>
                                     )) : (
@@ -156,9 +168,13 @@ export default function ClientsShow({ client, projects, requests }: { client: Cl
                                                         {request.status === 'REJECTED' && <span className="text-red-600 dark:text-red-400">Rejected</span>}
                                                     </TableCell>
                                                     <TableCell className="text-right">
-                                                        <Button disabled={request.status !== 'FOR_REVIEW'}>
-                                                            <Link href={route('client.requests.show', request.id)}>View</Link>
-                                                        </Button>
+                                                        {request.status === 'FOR_REVIEW' ? (
+                                                            <Link href={route('client.requests.show', request.id)}>
+                                                                <Button>View</Button>
+                                                            </Link>
+                                                        ) : (
+                                                            <Button disabled>View</Button>
+                                                        )}
                                                     </TableCell>
                                                 </TableRow>
                                             ))

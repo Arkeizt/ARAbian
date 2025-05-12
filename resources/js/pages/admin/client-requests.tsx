@@ -115,11 +115,13 @@ export default function ClientRequests() {
                                 )}
                             </TableCell>
                             <TableCell className="text-right">
-                                <Button disabled={request.status !== 'FOR_REVIEW'}>
+                                {request.status === 'FOR_REVIEW' ? (
                                     <Link href={route('client.requests.show', request.id)}>
-                                        View
+                                        <Button>View</Button>
                                     </Link>
-                                </Button>
+                                ) : (
+                                    <Button disabled>View</Button>
+                                )}
                             </TableCell>
                         </TableRow>
                     ))}
