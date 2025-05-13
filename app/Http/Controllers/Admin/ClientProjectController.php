@@ -40,7 +40,7 @@ class ClientProjectController extends Controller
     {
         $project = Project::with([
             'user:id,name,avatar',
-            'posts:id,title,description,project_id',
+            'posts:id,title,description,project_id,created_at',
             'posts.media:id,file_name,file_url,media_type',
         ])->findOrFail($id);
 
@@ -65,7 +65,16 @@ class ClientProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'status' => ['required', 'in:ONGOING,ON_HOLD,COMPLETED,CANCELLED'],
+        ]);
+
+        $project = Project::findOrFail($id);
+
+        $project->status = $validated['status'];
+        $project->save();
+
+        return redirect()->back()->with('success', 'Project status updated successfully.');
     }
 
     /**

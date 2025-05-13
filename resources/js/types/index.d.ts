@@ -94,6 +94,8 @@ export interface ProjectPost {
     id: number;
     title: string;
     description: string;
+    created_at: string;
+    updated_at: string;
     project: Project;
     media: Media[];
     [key: string]: unknown;

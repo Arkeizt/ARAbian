@@ -8,15 +8,11 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { BreadcrumbItem, Project } from '@/types';
 import { useState } from 'react';
 
-interface ClientProjectPostCreateProps {
-project: Project;
-}
-
 const breadcrumbs: BreadcrumbItem[] = [
 { title: 'Create New Post', href: '/client-project-post-create' },
 ];
 
-export default function ClientProjectPostCreate({ project }: ClientProjectPostCreateProps) {
+export default function ClientProjectPostCreate({ project }: { project: Project }) {
     const [fileInputRef, setFileInputRef] = useState<HTMLInputElement | null>(null);
     const { data, setData, post, processing, errors } = useForm<{
         title: string;

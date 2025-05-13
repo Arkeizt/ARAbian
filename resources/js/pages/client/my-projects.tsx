@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { usePage } from '@inertiajs/react'; 
 import { FlashProps, Project, type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, router, Link} from '@inertiajs/react';
 import { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -86,9 +86,11 @@ export default function MyProjects() {
                                     </TableCell>
 
                                     <TableCell className="text-right">
-                                        <Button>
-                                            View
-                                        </Button>
+                                        <Link href={route('my.projects.show', project.id)}>
+                                            <Button>
+                                                View
+                                            </Button>
+                                        </Link>
                                     </TableCell>
                                 </TableRow>
                             ))}

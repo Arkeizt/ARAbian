@@ -41,10 +41,22 @@ class MyProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $project = Project::with([
+            'user:id,name,avatar',
+            'posts:id,title,description,project_id,created_at',
+            'posts.media:id,file_name,file_url,media_type',
+        ])
+        ->where('user_id', Auth::id())
+        ->findOrFail($id);
+    
+        return Inertia::render('client/my-projects-show', [
+            'project' => $project,
+            'posts' => $project->posts,
+        ]);
     }
+    
 
     /**
      * Show the form for editing the specified resource.

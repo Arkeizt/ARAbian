@@ -1,29 +1,40 @@
 import AppLayout from '@/layouts/app-layout';
-import { useState } from 'react';
+import { MoreVertical, Pencil, Trash } from 'lucide-react';
+import { useState, useMemo } from 'react';
 import { Project, type BreadcrumbItem, type ProjectWithPosts} from '@/types';
-import { Head, usePage, Link } from '@inertiajs/react';
+import { Head, usePage, Link, router } from '@inertiajs/react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Badge } from "@/components/ui/badge";
 import { route } from 'ziggy-js';
 import { Separator } from "@/components/ui/separator";
 import { useInitials } from '@/hooks/use-initials';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from "@/components/ui/button";
+import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-  } from "@/components/ui/carousel"
-  
+} from "@/components/ui/carousel";
+  import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function ClientProjectsShow() {
     const getInitials = useInitials();
     const { project, posts } = usePage<ProjectWithPosts>().props;
-    console.log(project); 
     const { url } = usePage();
     const searchParams = new URLSearchParams(url.split('?')[1]);
     const from = searchParams.get('from');
+
     const breadcrumbs: BreadcrumbItem[] = [
         from?.startsWith('client-requests')
             ? { title: 'Client Requests', href: '/admin/client-requests' }
@@ -32,7 +43,32 @@ export default function ClientProjectsShow() {
         { title: `${project.title}`, href: `/admin/client-projects-show/${project.id}` },
     ];
 
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleString();
+    };
+    const sortedPosts = useMemo(() => {
+        return [...posts].sort((a, b) => {
+            const dateA = new Date(a.created_at).getTime();
+            const dateB = new Date(b.created_at).getTime();
+            return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+        }).map(post => ({
+            ...post,
+            formattedCreatedAt: formatDate(post.created_at)
+        }));
+    }, [posts, sortOrder]);
+
+    const statusOptions = [
+        { value: 'ONGOING', label: 'Ongoing' },
+        { value: 'ON_HOLD', label: 'On Hold' },
+        { value: 'COMPLETED', label: 'Completed' },
+        { value: 'CANCELLED', label: 'Cancelled' },
+    ];
+
     return (
+        <>
+        <Toaster />
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={project.title} />
             <div className='m-6 space-y-6'>
@@ -60,6 +96,31 @@ export default function ClientProjectsShow() {
                                     <span className="text-red-600 dark:text-red-400"> Cancelled</span>
                                 )}
                             </p>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <span className="text-xs ml-2 pt-0.5 text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
+                                        Change Status
+                                    </span>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <DropdownMenuLabel>Set Status</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    {statusOptions.map(option => (
+                                        <DropdownMenuItem
+                                            key={option.value}
+                                            onClick={() => {
+                                                if (option.value !== project.status) {
+                                                    router.put(route('client.projects.update', project.id), {
+                                                        status: option.value,
+                                                    });
+                                                }
+                                            }}
+                                        >
+                                            {option.label}
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
                         <div className='flex gap-2 items-center mt-2'>
                             <Avatar className="size-8 overflow-hidden rounded-full">
@@ -86,21 +147,90 @@ export default function ClientProjectsShow() {
                 <div className='m-10 space-y-4'>
                     <div>
                         <span className='m-6 text-xl font-bold'>Posts</span>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <button className="px-3 py-1.5 border rounded text-sm hover:bg-accent">
+                                    Sort: {sortOrder === 'asc' ? 'Oldest First' : 'Newest First'}
+                                </button>
+                            </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                <DropdownMenuItem onClick={() => setSortOrder('asc')}>
+                                    Oldest First
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSortOrder('desc')}>
+                                    Newest First
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                     <Separator />
                     <div className='flex flex-col justify-center items-center space-y-4 w-full'>
-                        {posts.map((post) => (
+                        {sortedPosts.map((post) => (
                             <Card key={post.id} className='w-3/4 mx-auto'>
                                 <CardHeader>
-                                    <h2 className='text-lg font-semibold'>{post.title}</h2>
-                                    <p className='text-muted-foreground'>{post.description}</p>
+                                    <div className="flex items-center justify-between">
+                                        <h2 className='text-lg font-semibold'>{post.title}</h2>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <button
+                                                type="button"
+                                                className="p-1 rounded hover:bg-muted transition"
+                                                >
+                                                <MoreVertical className="w-4 h-4 text-muted-foreground hover:text-foreground" />
+                                                </button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align="end">
+                                                <DropdownMenuItem onClick={() => router.visit(route('client.project.posts.edit', { projectId: project.id, post: post.id }))}>
+                                                    <Pencil className="w-4 h-4 mr-2" />
+                                                    Edit
+                                                </DropdownMenuItem>
+
+                                                <DropdownMenuItem
+                                                    onClick={() => {
+                                                        if (
+                                                        confirm(
+                                                            'Are you sure you want to delete this post? This action cannot be undone.'
+                                                        )
+                                                        ) {
+                                                        router.delete(
+                                                            route('client.project.posts.destroy', {
+                                                            projectId: project.id,
+                                                            post: post.id,
+                                                            }),
+                                                            {
+                                                            preserveScroll: true,
+                                                            onSuccess: () => {
+                                                                toast.success('Success!', {
+                                                                    description: 'Post was successfully deleted.',
+                                                                });
+                                                            },
+                                                            onError: () => {
+                                                                toast.error('Error', {
+                                                                    description: 'Failed to delete the post.',
+                                                                });
+                                                            },
+                                                            }
+                                                        );
+                                                        }
+                                                    }}
+                                                    >
+                                                    <Trash className="w-4 h-4 mr-2" />
+                                                    Delete
+                                                </DropdownMenuItem>
+
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
+                                    <p className='text-xs text-muted-foreground'>{post.formattedCreatedAt}</p>
+                                    <Separator />
+                                    <p className='text-muted-foreground ml-4'>{post.description}</p>
                                 </CardHeader>
 
                                 <CardContent className='space-y-2'>
                                     {post.media
                                         .filter((media) => media.media_type === 'DOCUMENT')
                                         .map((media) => (
-                                            <div key={media.id} className='border p-2 rounded'>
+                                            <div key={media.id} className='border p-4 rounded'>
                                                 <p className='font-medium'>{media.file_name}</p>
                                                 <a
                                                 href={media.file_url}
@@ -110,7 +240,6 @@ export default function ClientProjectsShow() {
                                                 >
                                                     View File
                                                 </a>
-                                                <p className='text-xs text-gray-500'>{media.media_type}</p>
                                             </div>
                                         ))}
 
@@ -152,5 +281,6 @@ export default function ClientProjectsShow() {
                 </div>
             </div>
         </AppLayout>
+        </>
     );
 }

@@ -93,24 +93,50 @@ class ClientProjectPostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($projectId, $postId)
     {
-        //
+        $project = Project::with('user:id,name,avatar')->findOrFail($projectId);
+    
+        $post = $project->posts()
+            ->with('media')
+            ->findOrFail($postId);
+    
+        return Inertia::render('admin/client-project-post-edit', [
+            'project' => $project,
+            'post' => $post,
+            'media' => $post->media,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update()
     {
-        //
+
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($projectId, $postId)
     {
-        //
+        $project = Project::findOrFail($projectId);
+        $post = $project->posts()->findOrFail($postId);
+
+        // Detach and optionally delete associated media
+        foreach ($post->media as $media) {
+            // Delete file from storage
+            Storage::disk('public')->delete(str_replace('/storage/', '', $media->file_url));
+            $media->delete(); // If you want to remove from DB as well
+        }
+
+        $post->delete();
+
+        return redirect()->route('client.projects.show', $projectId)
+            ->with('success', 'Post deleted successfully.');
     }
+
 }
