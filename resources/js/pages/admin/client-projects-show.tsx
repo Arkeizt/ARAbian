@@ -180,11 +180,6 @@ export default function ClientProjectsShow() {
                                                 </button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
-                                                <DropdownMenuItem onClick={() => router.visit(route('client.project.posts.edit', { projectId: project.id, post: post.id }))}>
-                                                    <Pencil className="w-4 h-4 mr-2" />
-                                                    Edit
-                                                </DropdownMenuItem>
-
                                                 <DropdownMenuItem
                                                     onClick={() => {
                                                         if (

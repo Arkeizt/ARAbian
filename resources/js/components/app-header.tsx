@@ -70,8 +70,15 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                                 </Link>
                                             ))}
                                         </div>
-
+                                        
                                         <div className="flex flex-col space-y-4">
+                                             {!isAdmin && (
+                                                <Link href={route('request.project.create')}>
+                                                    <Button>
+                                                        Request a Project
+                                                    </Button>
+                                                </Link>
+                                            )}
                                             {rightNavItems.map((item) => (
                                                 <a
                                                     key={item.title}
